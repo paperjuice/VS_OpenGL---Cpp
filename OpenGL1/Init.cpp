@@ -19,7 +19,7 @@ SDL_Window* Init::Initialize(const GLchar* title, const GLint& x_pos, const GLin
 	SDL_GL_CreateContext(window);
 	glewExperimental = true;
 	glewInit();
-	glViewport(0, 0, 640, 400);
+	glViewport(0, 0, WIDTH, HEIGHT);
 	return window;
 }
 

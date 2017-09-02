@@ -26,7 +26,7 @@ GLuint Shader::Create(const GLuint& type, const GLchar* shader_source_file)
 	if (!success)
 	{
 		glGetShaderInfoLog(shader_id, 512, NULL, log_info);
-		std::cout << "Shader compilation failed: " << log_info << std::endl;
+		std::cout << "Shader " << type << " compilation failed: " << log_info << std::endl;
 		return 0;
 	}
 	else
