@@ -1,2 +1,2 @@
 special-vendored-path/* linguist-vendored
-OpenGL1/stb_image.h linguist-language=C++
+OpenGL1/stb_image.h linguist-language=false
