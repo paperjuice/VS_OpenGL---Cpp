@@ -1,17 +1,23 @@
 #ifndef TEXTURE_H
 #define TEXTURE_H
 
+#include <iostream>
 #include <GL/glew.h>
 #include <SDL.h>
 #include <SDL_opengl.h>
-#define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
 
 
-class Texture{
+
+class Texture {
 public:
+	Texture();
+	~Texture();
+	GLuint Create(const char* texture_name);
 
-
+private:
+	GLint width, height, channel_nr;
+	unsigned char* data;
+	GLuint texture;
 };
 
 

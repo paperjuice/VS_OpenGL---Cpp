@@ -5,25 +5,27 @@
 #include "Init.h"
 #include "Shader.h"
 #include "Buffer.h"
+#include "Texture.h"
 
 int main(int argc, char* argv[])
 {
-	const GLuint WIDTH = 640;
-	const GLuint HEIGHT = 400;
+	const GLuint WIDTH = 1024;
+	const GLuint HEIGHT = 762;
 	float a = 0;
 	Uint32 end_time = 0;
 	SDL_Event _event;
 	SDL_Window* window;
 	Shader sh;
 	Buffer bfr;
+	Texture texture;
 	GLboolean is_running = true;
 	Init init;
 	
 	const GLfloat vertex[] = {
-	0.5f, -0.5f, 0.0f,        0.9f, 0.1f, 0.1f,
-	-0.5f, -0.5f, 0.0f,       0.1f, 0.9f, 0.9f,
-	-0.5f,  0.5f, 0.0f,       0.9f, 0.9f, 0.1f,
-	0.5f, 0.5f, 0.0f,         0.9f, 0.1f, 0.9f
+	0.5f, -0.5f, 0.0f,        0.9f, 0.1f, 0.1f,      1.0f, 0.0f,
+	-0.5f, -0.5f, 0.0f,       0.1f, 0.9f, 0.9f,       0.0f, 0.0f,
+	-0.5f,  0.5f, 0.0f,       0.9f, 0.9f, 0.1f,       0.0f, 1.0f,
+	0.5f, 0.5f, 0.0f,         0.9f, 0.1f, 0.9f,        1.0f, 1.0f
 	};
 	const size_t vertex_size = sizeof(vertex);
 
@@ -37,7 +39,7 @@ int main(int argc, char* argv[])
 	const GLuint vertex_shader = sh.Create(GL_VERTEX_SHADER, "vertex_shader.vs");
 	const GLuint fragment_shader = sh.Create(GL_FRAGMENT_SHADER, "fragment_shader.fs");
 	const GLuint program_shader = sh.Link(vertex_shader, fragment_shader);
-
+	const GLuint texture_id = texture.Create("texture.jpg");
 	const GLuint VAO = bfr.Create(vertex_size, vertex, sizeof(indeces), indeces);
 
 
@@ -59,9 +61,7 @@ int main(int argc, char* argv[])
 		}
 
 		const GLuint uniform = glGetUniformLocation(program_shader, "color_offset");
-		
 		Uint32 start_time = SDL_GetTicks();
-		
 		if (start_time - end_time >= 60)
 		{
 			end_time = start_time;
@@ -75,6 +75,7 @@ int main(int argc, char* argv[])
 		
 		glUseProgram(program_shader);
 		
+		glBindTexture(GL_TEXTURE_2D, texture_id);
 		glBindVertexArray(VAO);
 
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
